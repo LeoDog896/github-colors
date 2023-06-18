@@ -1,0 +1,29 @@
+name: Generate GitHub Colors
+on:
+  # Schedule daily updates
+  schedule: [{cron: "0 0 * * *"}]
+  # (optional) Run workflow manually
+  workflow_dispatch:
+  # Run workflow when pushing on main
+  push:
+    branches: ["main"]
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      - name: Run deno grab action
+        run: deno task grab
+      - name: Format files
+        run: deno fmt
+      - uses: stefanzweifel/git-auto-commit-action@v4
+      

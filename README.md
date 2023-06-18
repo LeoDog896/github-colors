@@ -1,2 +1,3 @@
 # github-colors
-auto-generated and deno registry protected list of github language colors
+
+auto-generated list of github language colors as JSON
